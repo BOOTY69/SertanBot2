@@ -6,7 +6,7 @@ client.on('ready',() => {
 	console.log('I\'m Online\nI\'m Online');
 });
 
-var prefix = "*"
+var prefix = "^"
 client.on('message', message => {
 
 	if (message.author === client.user) return;
@@ -27,7 +27,6 @@ client.on('message', message => {
 	if (message.author === client.user) return;
 	if (message.content.startsWith(prefix + 'CopsBuy')) {
 		message.channel.send('To Buy Premuim Of Critical ops PM @Staff or Ruit to buy or Buy From Website');
-
 	};
 	if (message.author === client.user) return;
 	if (message.content.startsWith(prefix + 'CFeatures')) {
@@ -38,36 +37,68 @@ client.on('message', message => {
 	if (message.content.startsWith(prefix + 'Robots')) {
 		message.channel.send('You can buy War Robots Premuim Soon');
 	};
-	if (message.content.startsWith(prefix + 'prune')) {
-if (!message.member) return;  
-    try {
-    let amount = message.content.split(" ").splice(1, 2).join(" ");
-        if(amount < 1) {
-            return message.reply("The amount of messages to remove is 1-100.");
-        }
-        if(amount >100) {
-            return message.reply("Choose a number between 1-100.");
-        }
-        message.channel.bulkDelete(amount);
-        message.delete()
-      message.channel.sendMessage("Purged: " + amount + " Messages").then(m => m.delete(2500));
-    } catch(err) {
-			message.channel.sendCode('js', `${err}\nThe role Bot Commander was not found.`)
-		};
-	}
+	
+	if (message.author === client.user) return;
+	if (message.content.startsWith(prefix + 'invite')) {
+		message.channel.send('https://discordapp.com/oauth2/authorize?client_id=353795583552782338&scope=bot&permissions=2146958591');
+	};
 
-if (message.content.startsWith(prefix + 'help')) {
-	message.channel.send("Commands `CFeatures, CopsBuy, AS , credits, ping `")
-};// THIS SEMICOLON IS A BREAK ok
+	if (message.author === client.user) return;
+	if (message.content.startsWith(prefix + 'help')) {
+		message.channel.send('Commands : `invite, Robots, CFeatures, CopsBuy, AS, credits, ping`');
+	};
+	
+	if (message.author === client.user) return;
+		if (message.content.startsWith(prefix + 'purge')) {
+ +if (!message.member) return;  
+ +    try {
+ +    let amount = message.content.split(" ").splice(1, 2).join(" ");
+ +        if(amount < 1) {
+ +            return message.reply("The amount of messages to remove is 1-100.");
+ +        }
+ +        if(amount >100) {
+ +            return message.reply("Choose a number between 1-100.");
+ +        }
+ +        message.channel.bulkDelete(amount);
+ +        message.delete()
+ +      message.channel.sendMessage("Purged: " + amount + " Messages").then(m => m.delete(2500));
+ +    } catch(err) {
+ +			message.channel.sendCode('js', `${err}`)
+ +		};
+ +	}
+ 
 
-if (message.content.startsWith(prefix + 'embed')) {
-	let noto = message.content.split(" ").slice(1).join(" ");
-	message.delete();
-	var embed = new Discord.RichEmbed();
-  embed.setColor("#53A6F3")
-  .setDescription(noto)
-  message.channel.sendEmbed(embed, {disableEveryon: true});
-};
+	if (message.content.startsWith(prefix + 'myperms')) {
+      message.channel.send('`Your permissions are:\n`' +
+        JSON.stringify(message.channel.permissionsFor(message.author).serialize(), null, 4));
+    };
+
+		if (message.content.startsWith(prefix + 'setname')) {
+      message.channel.setName(message.content.substr(8));
+    };
+
+		if (message.content.startsWith(prefix + 'stats')) {
+		 let m = '';
+		 m += `They are ${message.guild.channels.size} channels\n`;
+		 m += `They are ${message.guild.members.size} members\n`;
+		 m += `They are ${client.channels.size} channels\n`;
+		 m += `They are ${client.guilds.size} guilds\n`;
+		 m += `They are ${client.users.size} users\n`;
+		 message.channel.send(m).then(msg => msg.edit(m)).catch(console.error);
+	 };
+
+
+	if (message.content.startsWith(prefix + 'userinfo')) {
+		let embed = new Discord.RichEmbed()
+		.setAuthor(message.author.username)
+		.setDescription("This is your user's info!")
+		.setColor("#428cdf")
+		.addField("Full Username", `${message.author.username}#${message.author.discriminator}`)
+		.addField("ID", message.author.id)
+		.addField("Avatar", message.author.avatarURL);
+
+		message.channel.sendEmbed(embed);
+	};
 
 });
 
